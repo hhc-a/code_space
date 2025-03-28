@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-Tw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS網頁樣式</title>
+    <style>
+        a:link{
+            color: black;
+        }
+        a:visited{
+            color: green;
+        }
+        a:hover{
+            color: red;
+        }
+        a:active{
+            color: yellow;
+        }
+        .input:focus{
+            background-color: #e2f2fe;
+            color: #008ba3;
+        }
+        li{
+            list-style: none;
+            float: left;
+            width: 50px;
+            height: 25px;
+            background-color: #ffbfbf;
+        }
+        li:nth-child(2n){
+            background-color: #b7cefc;
+        }
+        h1:before{
+            content: "\1F601";
+        }
+        h1::after{
+            content: "\1F603";
+        }
+        pre::first-line{
+            color: red;
+        }
+        pre::first-letter{
+            color: red;
+            font-size: 200%
+        }
+        pre::selection{
+            color: blue;
+            background: yellow;
+        }
+        h1::selection{
+            background: green;
+        }
+    </style>
+</head>
+<body>
+    <a href="#">超連結</a>
+    <input class="input" type="text" value="I love you">
+    <input class="input" type="text" value="I love you">
+    <ul>
+        <li>選項1</li>
+        <li>選項2</li>
+        <li>選項3</li>
+        <li>選項4</li>
+        <li>選項5</li>
+        <li>選項6</li>
+    </ul>
+    <br>
+    <h1>標題</h1>
+    <h1>李白《靜夜思》</h1>
+    <pre>
+        床前明月光，疑是地上霜。
+        舉頭望明月，低頭思故鄉。
+    </pre>
+</body>
+</html>

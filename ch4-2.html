@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-Tw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS網頁樣式</title>
+    <style>
+        #main-title{color: purple;}
+        .title{color: green !important;}
+        .text-orange{
+            color: orange;
+        }
+        .class1.class2{
+            color: yellow;
+        }
+        *{
+            font-size: 20px;
+        }
+        h1[title*="text"]{
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="maintitle" class="title">標題</h1>
+    <h1 id="maintitle" class="title" style="color: blue;">標題</h1>
+    <h1 class="text-orange">我是標題</h1>
+    <h1 class="class1 class2">我是標題</h1>
+    <h1 title="text">我是標題1</h1>
+    <h1 title="text2">我是標題2</h1>
+</body>
+</html>
