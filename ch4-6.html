@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-Tw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS網頁樣式</title>
+<style>
+    .item{
+        display: flex;
+        background-color: lightblue;
+        width: 160px;
+        height: 120px;
+        margin: 5px;
+        justify-content: center;
+        align-items: center;
+    }
+    .container{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .container{
+        display: flex;
+        flex-direction: row;
+    }
+    .container{
+        display: flex;
+        flex-direction: row-reverse;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="item">block1</div>
+        <div class="item">block2</div>
+        <div class="item">block3</div>
+    </div>
+</body>
+</html>
