@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-Tw">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>安卓筆記本電腦商店</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      margin: 0;
+    }
+
+    .cart-icon {
+      cursor: pointer;
+      position: relative;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background-color: red;
+      color: white;
+      font-size: 12px;
+      border-radius: 50%;
+      padding: 2px 6px;
+    }
+
+    .layout {
+      width: 100%;
+      display: grid;
+      grid-template-rows: repeat(auto-fit, 1fr);
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      padding: 20px;
+    }
+
+    .product-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      padding: 16px;
+      text-align: center;
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .product-name {
+      margin: 10px 0;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .product-price {
+      color: #e74c3c;
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+
+    .buy-btn {
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .buy-btn:hover {
+      background-color: #219150;
+    }
+
+    footer {
+      text-align: center;
+      padding: 16px;
+      background-color: #eee;
+      margin-top: 20px;
+    }
+
+    .cart-modal {
+      position: fixed;
+      top: 60px;
+      right: 20px;
+      width: 300px;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      display: none;
+      z-index: 999;
+    }
+
+    .cart-modal h3 {
+      margin-top: 0;
+    }
+
+    .cart-items {
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+    }
+
+    .cart-total {
+      font-weight: bold;
+      margin-top: 10px;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>安卓筆記本電腦商店</h1>
+    <div class="cart-icon" onclick="toggleCart()">
+      🛒 購物車
+      <span class="cart-count" id="cart-count">0</span>
+    </div>
+  </header>
+
+  <section class="layout" id="product-list">
+    <!-- 商品會透過 JS 插入 -->
+  </section>
+
+  <div class="cart-modal" id="cart-modal">
+    <h3>購物車內容</h3>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-total" id="cart-total">總計：NT$ 0</div>
+  </div>
+
+  <footer>&copy; 2025 安卓筆記本電腦商店</footer>
+
+  <script>
+    const products = [
+      { name: "ASUS AndroidBook X1", price: 25900, image: "https://via.placeholder.com/300x180?text=筆電+ASUS" },
+      { name: "Lenovo ThinkAndroid 14", price: 22500, image: "https://via.placeholder.com/300x180?text=筆電+Lenovo" },
+      { name: "Samsung Galaxy NoteBook", price: 28300, image: "https://via.placeholder.com/300x180?text=筆電+Samsung" },
+      { name: "Acer ChromeAndroid", price: 20900, image: "https://via.placeholder.com/300x180?text=筆電+Acer" },
+      { name: "Logitech 無線滑鼠", price: 690, image: "https://via.placeholder.com/300x180?text=滑鼠" },
+      { name: "Razer 機械式鍵盤", price: 2990, image: "https://via.placeholder.com/300x180?text=鍵盤" },
+      { name: "Sony 無線耳機", price: 4990, image: "https://via.placeholder.com/300x180?text=耳機" },
+      { name: "ViewSonic 27吋螢幕", price: 5990, image: "https://via.placeholder.com/300x180?text=螢幕" },
+      { name: "Anker USB-C Hub", price: 1290, image: "https://via.placeholder.com/300x180?text=USB+Hub" },
+      { name: "SteelSeries 滑鼠墊", price: 590, image: "https://via.placeholder.com/300x180?text=滑鼠墊" },
+      { name: "筆電支架 折疊式", price: 850, image: "https://via.placeholder.com/300x180?text=筆電支架" },
+      { name: "WD 外接硬碟 1TB", price: 2390, image: "https://via.placeholder.com/300x180?text=外接硬碟" },
+    ];
+
+    const cart = [];
+
+    const productList = document.getElementById("product-list");
+    const cartCount = document.getElementById("cart-count");
+    const cartItems = document.getElementById("cart-items");
+    const cartTotal = document.getElementById("cart-total");
+    const cartModal = document.getElementById("cart-modal");
+
+    // 產生商品列表
+    products.forEach((product, index) => {
+      const card = document.createElement("div");
+      card.className = "product-card";
+      card.innerHTML = `
+        <img src="${product.image}" alt="${product.name}">
+        <div class="product-name">${product.name}</div>
+        <div class="product-price">NT$ ${product.price.toLocaleString()}</div>
+        <button class="buy-btn" onclick="addToCart(${index})">加入購物車</button>
+      `;
+      productList.appendChild(card);
+    });
+
+    function addToCart(index) {
+      const item = products[index];
+      cart.push(item);
+      updateCart();
+    }
+
+    function updateCart() {
+      cartCount.textContent = cart.length;
+      cartItems.innerHTML = "";
+
+      let total = 0;
+      cart.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "cart-item";
+        div.innerHTML = `
+          <span>${item.name}</span>
+          <span>NT$ ${item.price.toLocaleString()}</span>
+        `;
+        cartItems.appendChild(div);
+        total += item.price;
+      });
+
+      cartTotal.textContent = `總計：NT$ ${total.toLocaleString()}`;
+    }
+
+    function toggleCart() {
+      cartModal.style.display = cartModal.style.display === "block" ? "none" : "block";
+    }
+  </script>
+
+</body>
+</html>
