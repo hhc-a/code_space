@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-Tw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery</title>
+    <!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <p id="p1">段落一</p>
+    <p class="special">段落二</p>
+    <p>段落三</p>
+    <script>
+    //撰寫Jquery語法
+        $('#p1').css('color','red');
+        $('.special').css('font-weight','bold');
+        $('p').css('font-size','20px');
+    </script>
+    <button id="btn">改變文字與樣式</button>
+    <p id="target">這是一段文字</p>
+    <script>
+    //請撰寫jquery語法
+    $('#btn').click(function(){
+        $('target')
+        .text('文字已被改變')
+        .css({
+            color:'blue',
+            backgroundColor:'lightyellow',
+        })
+    })
+    </script> 
+    <button id="clickBtn">點我一下</button>
+    <input type="text" id="inputBox" placeholder="輸入些東西">
+    <p id="result"></p>
+    <script>
+    //請撰寫jquery語法
+    $('#clickBtn').on('click',function(){
+        let value=$('#inputBox').val();
+        $('#result').text('你輸入的是：'+value)
+    })
+    </script>    
+</body>
+</html>
