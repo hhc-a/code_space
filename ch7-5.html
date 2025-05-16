@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-Tw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery</title>
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>    
+</head>
+<body>
+    <button id="show">顯示圖片</button>
+    <button id="hide">隱藏圖片</button>
+    <img id="pic" src="https://picsum.photos/200" style="display:none;">
+    <script>
+    //請撰寫jquery語法
+        $('#show').click(function(){
+            $('#pic').slideToggle(1000);
+        })
+        $('#hide').click(function(){
+            $('#pic').fadeOut(1000);
+        })
+    </script>
+    <div id="accordion">
+        <h3>章節 1</h3>
+        <div><p>內容 A</p></div>
+        <h3>章節 2</h3>
+        <div><p>內容 B</p></div>
+        </div>
+        <script>
+        $(function () {
+        $('#accordion').accordion();//使用Accordion可摺疊式面板
+        });
+        </script>
+        
+</body>
+</html>
